@@ -14,7 +14,8 @@ const morgan = require('morgan');
 const express = require("express");
 require('./config/db.connection')
 
-
+const { homeController } = require ('./controllers')
+const { reviewController } = require ('./controllers')
 
 // create application object
 const app = express();
@@ -23,7 +24,8 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
-
+app.use('/home', homeController );
+app.use('/review', reviewController)
 app.use((err, req, res, next) => res.status(500).send(err))
 	
 ///////////////////////////////
