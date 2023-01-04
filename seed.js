@@ -1,5 +1,5 @@
-const {Home} = require('./models/');
-const data = require('./LAdata.json')
+const {Home} = require('./models');
+const data = require('./data/Parisdata.json');
 
 async function seedData() {
     let seedingData = [];    
@@ -12,13 +12,14 @@ async function seedData() {
                 photos.push(p.pictureUrl)
             })
         }
-
+const lat = d.location ? d.location.lat : '';
+const lng = d.location ? d.location.lng : '';
         seedingData.push({
             name: d.name,
             address: d.address,
             location: {
-                lat: d.location.lat,
-                long: d.location.lng
+                lat: lat,
+                long: lng
             },
             numberOfGuests: d.numberOfGuests,
             rate: rate,
@@ -34,12 +35,12 @@ async function seedData() {
             }
         })
     });
-// console.log(seedingData)
+ console.log(seedingData)
     try {
         // const allDeleted = await Home.deleteMany({})
         // console.log(allDeleted)
         
-        //const seeded = await Home.insertMany(seedingData)
+        const seeded = await Home.insertMany(seedingData)
         console.log(seeded.length, 'homes added')
     
 		}catch(err) {

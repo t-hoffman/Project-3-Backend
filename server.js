@@ -14,8 +14,8 @@ const morgan = require('morgan');
 const express = require("express");
 require('./config/db.connection')
 
-const { homeController } = require ('./controllers')
-const { reviewController } = require ('./controllers')
+const { homeControllers } = require ('./controllers')
+const { reviewControllers } = require ('./controllers')
 
 // create application object
 const app = express();
@@ -24,8 +24,8 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use('/home', homeController );
-app.use('/review', reviewController)
+app.use('/home', homeControllers );
+app.use('/review', reviewControllers)
 app.use((err, req, res, next) => res.status(500).send(err))
 	
 ///////////////////////////////
@@ -35,8 +35,6 @@ app.use((err, req, res, next) => res.status(500).send(err))
 app.get("/", (req, res) => {
     res.send("hello world");
 });
-
-require('./seedLA')
 
 ///////////////////////////////
 // LISTENER
