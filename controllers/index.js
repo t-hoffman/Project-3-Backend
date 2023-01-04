@@ -1,6 +1,6 @@
 module.exports = {
-   homeControllers: require('./homes-controller')
+   homeController: require('./homes-controller')
 }
 module.exports = {
-   reviewControllers: require('./reviews-controller')
+   reviewController: require('./reviews-controller')
 }
