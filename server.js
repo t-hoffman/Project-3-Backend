@@ -36,6 +36,8 @@ app.get("/", (req, res) => {
     res.send("hello world");
 });
 
+require('./seedLA')
+
 ///////////////////////////////
 // LISTENER
 ////////////////////////////////
