@@ -40,7 +40,7 @@ app.use('/test', async (req,res) => {
     }catch(err) {
         console.log(err);
     }
-})
+});
 
 ///////////////////////////////
 // ROUTES
