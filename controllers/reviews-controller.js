@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) =>{
     }
  })
 
- router.get("/:id", async (req, res) => {
+ router.get("/:id", async (req, res, next) => {
 	try {
         const review = await Review.findById(req.params.id)
         res.status(200).json(home)
@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) =>{
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
 	try {
         const deletedReview = await Home.findByIdAndRemove(req.params.id)
         res.status(202).json({message:`${deletedReview}`})

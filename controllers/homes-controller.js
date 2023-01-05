@@ -27,17 +27,18 @@ router.post('/', async (req, res, next) =>{
     }
  })
 
- router.get("/:id", async (req, res) => {
+ router.get("/:id", async (req, res, next) => {
 	try {
         const home = await Home.findById(req.params.id)
-        res.status(200).json(home)
+        const homeWithReviews = await home.populate('reviews');
+        res.status(200).json(homeWithReviews)
     } catch (error) {
         res.status(400).json(error)
         next();
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
 	try {
         const deletedHome = await Home.findByIdAndRemove(req.params.id)
         res.status(202).json({message:`${deletedHome}`})
