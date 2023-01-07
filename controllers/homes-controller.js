@@ -5,6 +5,29 @@ const { Home } = require('../models')
 
 require('../config/db.connection')
 
+router.get("/limit/:limit", async (req, res, next) => {
+    try {
+        const home = await Home.find({}).limit(req.params.limit);
+        res.status(200).json(home);
+    } catch (error) {
+        res.status(400).json(error);
+        next();
+    }
+});
+
+router.get("/limit/:limit/:page", async (req, res, next) => {
+    try {
+        const page = req.params.page;
+        const home = await Home.find({})
+        .skip(page > 0 ? (page - 1) * req.params.limit : 0)
+        .limit(req.params.limit);
+        res.status(200).json(home);
+    } catch (error) {
+        res.status(400).json(error);
+        next();
+    }
+});
+
 router.get('/', async (req, res, next) => {
     try {
         const homes = await Home.find({})
