@@ -4,6 +4,7 @@ const NYdata = require('./data/NewYorkdata.json');
 const PAdata = require('./data/Parisdata.json');
 const CHdata = require('./data/Chicagodata.json');
 const MIdata = require('./data/Miamidata.json');
+const JTdata = require('./data/JoshuaTreedata.json');
 
 async function seedData(data) {
     // const homeDeleted = await Home.deleteMany({});
@@ -99,3 +100,5 @@ async function seedData(data) {
 //  seedData(PAdata);
 //  seedData(CHdata);
 // seedData(MIdata);
+
+// seedData(JTdata);
