@@ -3,10 +3,11 @@ const LAdata = require('./data/LAdata.json');
 const NYdata = require('./data/NewYorkdata.json');
 const PAdata = require('./data/Parisdata.json');
 const CHdata = require('./data/Chicagodata.json');
+const MIdata = require('./data/Miamidata.json');
 
 async function seedData(data) {
-    const homeDeleted = await Home.deleteMany({});
-    const reviewDeleted = await Review.deleteMany({})
+    // const homeDeleted = await Home.deleteMany({});
+    // const reviewDeleted = await Review.deleteMany({})
     let seedingData = [];    
     data.forEach(async d => {
         const rate = d.pricing.rate ? d.pricing.rate.amount : '';
@@ -20,8 +21,6 @@ async function seedData(data) {
 
         const lat = d.location ? d.location.lat : '';
         const lng = d.location ? d.location.lng : '';
-
-        seedingData.push();
         
         const createdHome = await Home.create({
             name: d.name,
@@ -99,3 +98,4 @@ async function seedData(data) {
 //  seedData(NYdata);
 //  seedData(PAdata);
 //  seedData(CHdata);
+// seedData(MIdata);
