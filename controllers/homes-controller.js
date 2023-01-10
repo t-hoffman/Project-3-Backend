@@ -1,27 +1,52 @@
 const express = require('express');
+const { trusted } = require('mongoose');
 const router = express.Router();
 const { Home } = require('../models')
 
-
 require('../config/db.connection')
 
-router.get("/limit/:limit", async (req, res, next) => {
+router.get("/limit/", async (req, res, next) => {
     try {
-        const home = await Home.find({}).limit(req.params.limit);
-        res.status(200).json(home);
+        const page = req.query.page;
+        const limit = req.query.limit;
+
+        if (page && limit) {
+            const home = await Home.find({})
+            .skip(page > 0 ? (page - 1) * req.query.limit : 0)
+            .limit(req.query.limit);
+            res.status(200).json(home);
+        } else if (limit) {
+            const home = await Home.find({})
+            .limit(req.query.limit);
+            res.status(200).json(home);
+        } else {
+            res.status(400).json({ message: 'limit required' })
+        }
     } catch (error) {
         res.status(400).json(error);
         next();
     }
 });
 
-router.get("/limit/:limit/:page", async (req, res, next) => {
+router.get("/location/:query", async (req, res, next) => {console.log(req.params,req.query)
     try {
-        const page = req.params.page;
-        const home = await Home.find({})
-        .skip(page > 0 ? (page - 1) * req.params.limit : 0)
-        .limit(req.params.limit);
-        res.status(200).json(home);
+        const limit = req.query.limit;
+        const page = req.query.page;
+        const mongoQuery = {address: {$regex: req.params.query}};
+
+        if (limit && page) {
+            const results = await Home.find(mongoQuery)
+            .skip(page > 0 ? (page - 1) * req.query.limit : 0)
+            .limit(limit);
+            res.status(200).json(results);
+        } else if (limit) {
+            const results = await Home.find(mongoQuery)
+            .limit(limit);
+            res.status(200).json(results);
+        } else {
+            const results = await Home.find(mongoQuery);
+            res.status(200).json(results);
+        }
     } catch (error) {
         res.status(400).json(error);
         next();
@@ -86,7 +111,7 @@ router.delete("/:id", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
 	try {
         const updatedHome = await Home.findByIdAndUpdate(req.params.id, req.body, {new: true})
-        res.status(201).json(updatedPerson)
+        res.status(201).json(updatedHome)
     } catch (error) {
         res.status(400).json(error)
         next();

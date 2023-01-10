@@ -8,6 +8,7 @@ const JTdata = require('./data/JoshuaTreedata.json');
 const BHdata = require('./data/BHdata.json');
 const OMG1data = require('./data/OMGdata1.json');
 const OMG2data = require('./data/OMG2data.json');
+const OMG3data = require('./data/OMG3data.json');
 
 async function seedData(data) {
     // const homeDeleted = await Home.deleteMany({});
@@ -99,10 +100,10 @@ async function seedData(data) {
     console.log('complete')
 }
 
-//  seedData(LAdata);
-//  seedData(NYdata);
-//  seedData(PAdata);
-//  seedData(CHdata);
+// seedData(LAdata);
+// seedData(NYdata);
+// seedData(PAdata);
+// seedData(CHdata);
 // seedData(MIdata);
 // seedData(BHdata);
 // seedData(JTdata);

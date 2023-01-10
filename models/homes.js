@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const homeSchema = new mongoose.Schema({
     userId: Number,
     name: {type: String, required: [true, 'Name Required']},
-    address: {type: String, require: [true, 'Address Required']},
+    address: {type: String, required: [true, 'Address Required']},
     location: {
         lat: {type: Number},
         long: {type: Number}
