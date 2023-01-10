@@ -28,6 +28,17 @@ router.get("/limit/:limit/:page", async (req, res, next) => {
     }
 });
 
+router.get("/user/:id", async (req, res, next) => {
+    try {
+        const userID = req.params.id;
+        const home = await Home.find({userId: userID})
+        res.status(200).json(home);
+    } catch (error) {
+        res.status(400).json(error);
+        next();
+    }
+});
+
 router.get('/', async (req, res, next) => {
     try {
         const homes = await Home.find({})
