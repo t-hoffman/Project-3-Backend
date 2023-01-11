@@ -28,11 +28,11 @@ router.get("/limit/", async (req, res, next) => {
     }
 });
 
-router.get("/location/:query", async (req, res, next) => {console.log(req.params,req.query)
+router.get("/location/:query", async (req, res, next) => {
     try {
         const limit = req.query.limit;
         const page = req.query.page;
-        const mongoQuery = {address: {$regex: req.params.query}};
+        const mongoQuery = {address: {'$regex': req.params.query, $options: 'i'}};
 
         if (limit && page) {
             const results = await Home.find(mongoQuery)
